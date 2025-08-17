@@ -1,0 +1,89 @@
+URL: https://go2docs.graylog.org/current/setting_up_graylog/api_browser.html
+============================================================
+МЕТАДАННЫЕ:
+title: API Browser
+description: Access the Graylog API Browser through the web interface to explore and test REST API calls. View endpoints, perform requests, and learn API parameters for automation.
+------------------------------------------------------------
+ИЗВЛЕЧЕННЫЙ ТЕКСТ:
+============================================================
+Skip To Main Content 
+ Account 
+ Settings Logout 
+ placeholder 
+ Account 
+ Settings Logout 
+ Filter: 
+ All Files 
+ Submit Search 
+ The following content is part of the Graylog 
+ 6.3 documentation. If you are using another version of Graylog, please switch to your version. 
+ Select Version 6.2 6.1 6.0 5.2 5.1 and earlier 
+ We strongly recommend all users currently running Graylog versions 6.2.0–6.2.3 upgrade immediately to the latest secure version to resolve a high-severity privilege escalation vulnerability . See Upgrade Graylog for detailed instructions on upgrading your Graylog instance. 
+ API Browser 
+ The API browser provides full, interactive access to the Graylog REST API through a graphical web UI. You can perform the same functions through the API that you can perform through the standard Graylog web interface. 
+ The API browser is a good choice for actions such as: 
+ Performing single requests, either to retrieve information or to make changes. 
+ Learning the requirements of methods (parameters, syntax) so that you can use them in scripts. 
+ For actions that you frequently repeat or that require multiple steps to complete, consider scripting API calls instead. 
+ Prerequisites 
+ Before proceeding, ensure that the following prerequisites are met: 
+ The API browser is a custom Swagger UI implementation that runs in the latest versions of Google Chrome, Microsoft Edge, Firefox, and Safari. 
+ You must have assigned appropriate user credentials for your Graylog instance. 
+ Hint: When you perform calls through the API browser, the calls are authenticated via the credentials you used to log on to Graylog. If you access the API browser via the web when you are not logged in to Graylog in the same browser, you are prompted for your username and password when you attempt to send a call. Thus, performing an API call for which your user role does not have appropriate permissions will cause the call to fail with an associated response code. 
+ Access the API Browser 
+ API Browser in Graylog UI 
+ You can access the API browser through the Graylog web interface, but note it will open and run in its own browser tab. To access the API browser: 
+ Navigate to System > Nodes . 
+ Select API browser , which opens the API browser in a new tab. 
+ Hint: If you have a multi-node installation and your Graylog nodes are behind a load balancer, you can access the API browser only in global mode. See Global Mode below for details. 
+ API Browser Direct Access 
+ You can also connect to the API browser without logging in to your Graylog instance. To do so, add /api/api-browser to your current http_publish_uri setting, found in the server.conf file . For reference, this setting is the HTTP URI used by all clients to access the Graylog web interface. 
+ For example, if your Graylog REST API is listening on http://127.0.0.1:9000 , the API browser is available at http://127.0.0.1:9000/api/api-browser . 
+ The API browser lists all the Graylog REST API endpoints and methods. 
+ In the API browser: 
+ Click List Operations for an endpoint to show a list of all methods the endpoint supports. The Graylog REST API allows GET, POST, PUT, and DELETE methods, but each endpoint does not necessarily include every method type. This list view includes a brief description of each method. 
+ Click Expand Operations to show the detail pane for each method of an endpoint. Alternatively, from the list view, click the endpoint path link for an individual method to open only that method’s detail pane. 
+ Within the detail pane for any method, click Try it out! to perform the API call. If the method has required parameters, you must enter them for the call to run. 
+ Warning: Calls via the API browser act on your Graylog environment as if performed directly through the web interface. For any operation that changes data or status within your environment, you are prompted to make sure you want to proceed with the action before the API browser sends the call. 
+ Global Mode 
+ If you have a multi-node installation and your Graylog nodes are behind a load balancer, you can access the API browser only in global mode. Graylog detects configurations that require global mode. You must also use the Global API Browser if running Graylog in Cloud environments like AWS.Therefore, on the System > Nodes page, click Cluster Global API browser to open the API browser. This button appears only when you have the appropriate configuration. 
+ You can still access the API browser directly in a web browser without logging in to your Graylog instance. In global mode, add /api/api-browser/global/index.html to your current http_publish_uri setting. 
+ Also, in global mode, you cannot access individual nodes. With this configuration, the API calls you make are not bound to a specific node and are performed against a random node in your Graylog cluster. Keep this in mind particularly when you attempt methods that typically act on specific nodes. 
+ The Method Detail Pane 
+ In addition to the Try it out! button that lets you send a method request, each method detail pane contains all the information for the method. For methods that have parameters (either required or optional), you can enter the parameters in the detail pane before sending the request. 
+ The following information is shown in the method detail pane: 
+ Implementation Notes : If present, this section includes more detail about the method and how it is used. 
+ Response Class : Displays response architecture as either: 
+ Model : Provides each possible field with its data type (for example, string, Boolean, object). 
+ Model Schema : Displays a simple JSON version of response output. 
+ Parameters : This section displays only for methods that include input parameters. Each parameter is listed with the following information: 
+ Parameter : The name of the parameter. 
+ Value : Input a value in this field to include it when you send the request with the Try it out! button. If the parameter is required, that information is typically shown here. If the parameter has a default value, the value is typically inserted for you, although you can change the value as necessary. 
+ Description : Information about the parameter. 
+ Parameter Type : Clarifying tag for the data type. For example, if the parameter is a resource, the data type is string , but the parameter type lists path , which helps show how to enter the parameter. 
+ Data Type : Actual data type of the parameter. For example, string, integer, Boolean. 
+ Hint: If the parameter is a JSON body, Data Type displays the Model and Model Schema for the input, which is the same as in the Response Class field. Use this information as a guide for how to format your input data. 
+ Error Status Codes : If present, this section lists possible HTTP error statuses and descriptions you might receive for the specific method. 
+ After you perform a call, the detail pane display additional informational fields: 
+ Request URL : The full URL that was sent in the call, including any parameters. 
+ Response Body : The returned JSON body. 
+ Response Code : The HTML response code, typically 200 for success. For a failed call, check the Error Status Codes field for troubleshooting. 
+ Response Headers : The full, unparsed response header. 
+ API Browser 
+ Prerequisites 
+ Access the API Browser 
+ API Browser Direct Access 
+ The Method Detail Pane 
+ Graylog Home 
+ Resources 
+ Community 
+ Blog 
+ Videos 
+ Webinars 
+ Events 
+ Graylog Academy 
+ Release Notes 
+ Customer Support 
+ © 
+ Graylog, Inc. | All rights reserved 
+ Privacy Policy | Legal
