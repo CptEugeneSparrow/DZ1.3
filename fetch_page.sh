@@ -63,7 +63,7 @@ fetch_page() {
     local temp_file=$(mktemp)
     
     # Выполняем curl с обработкой ошибок
-    if curl \
+    local curl_output=$(curl \
         --silent \
         --show-error \
         --max-time "$timeout" \
@@ -76,15 +76,16 @@ fetch_page() {
         --user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" \
         --output "$temp_file" \
         --write-out "HTTP_CODE:%{http_code}\nSIZE:%{size_download}\nTIME:%{time_total}\n" \
-        "$url"; then
+        "$url" 2>&1)
+    
+    local curl_exit_code=$?
+    
+    if [[ $curl_exit_code -eq 0 ]]; then
         
-        # Получаем HTTP код и размер
-        local http_code=$(grep "HTTP_CODE:" "$temp_file" | cut -d: -f2)
-        local size=$(grep "SIZE:" "$temp_file" | cut -d: -f2)
-        local time=$(grep "TIME:" "$temp_file" | cut -d: -f2)
-        
-        # Удаляем служебные строки curl
-        sed -i '/^HTTP_CODE:/d; /^SIZE:/d; /^TIME:/d' "$temp_file"
+        # Получаем HTTP код и размер из curl output
+        local http_code=$(echo "$curl_output" | grep "HTTP_CODE:" | cut -d: -f2)
+        local size=$(echo "$curl_output" | grep "SIZE:" | cut -d: -f2)
+        local time=$(echo "$curl_output" | grep "TIME:" | cut -d: -f2)
         
         # Проверяем HTTP код
         if [[ "$http_code" -ge 200 && "$http_code" -lt 300 ]]; then
